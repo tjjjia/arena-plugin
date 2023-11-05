@@ -6,3 +6,110 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+.block-language-arena {
+	/* border: 1px solid #808080; */
+	/* border-radius: 2px; */
+	/* text-align: center; */
+	/* margin: 1rem 0; */
+
+	--arena-dimension: 15rem;
+	--arena-block-margin: calc(var(--arena-dimension)*.02);
+}
+.arena--block,
+.arena--block:hover {
+	display: inline-block;
+	position: relative;
+	height: var(--arena-dimension);
+	width: var(--arena-dimension);
+	margin: var(--arena-block-margin);
+	/* margin: 1rem 0; */
+	/* padding: .25rem; */
+	text-decoration: none;
+	border: 1px solid transparent;
+}
+.arena--block--inner {
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: column;
+	/* padding: .75rem; */
+	width: 100%;
+	height: 100%;
+	border: 1px solid transparent;
+}
+[data-class="text"] {
+	border: 1px solid var(--text-normal);
+	color: var(--text-normal);
+	overflow: hidden;
+	padding: calc(var(--arena-block-margin)*2);
+}
+.arena--block--inner:hover {
+	border: 1px solid var(--text-normal);
+	/* border: 1px solid var(--color-accent); */
+	/* border: 1px solid var(--color-accent1); */
+	/* border: 1px solid var(--color-accent2); */
+}
+
+.arena--block--inner img {
+	/* object-fit: contain; */
+	/* width: 100%; */
+	/* height: 100%; */
+}
+
+.arena--block--caption {
+	margin: .75rem 0;
+	height: 1rem;
+	max-width: 100%;
+	text-align: center;
+
+	font-size: var(--code-size);
+	color: var(--text-normal);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.arena--block--button,
+.arena--block--button:hover {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 90%;
+	transform: translate(-50%,-50%);
+
+	border-radius: 2px;
+	padding: 1rem;
+	text-align: center;
+	
+	/* background-color: var(--link-color); */
+	/* background-color: var(--color-accent-hsl); */
+	background-color: var(--interactive-hover);
+	/* background-color: var(--background-modifier-cover); */
+	color: var(--text-normal);
+	/* color: var(--color-accent-hsl); */
+	/* color: var(--color-accent-3); */
+	/* color: var(--link-color); */
+	text-decoration: none;
+	
+	opacity: 0;
+	pointer-events: none;
+}
+/* make button visible on hover */
+.arena--block--inner:hover .arena--block--button {
+	opacity: 1;
+	pointer-events: unset;
+}
+
+.arena--error--url {
+	font-family: var(--font-monospace);
+}
+.arena--error--message {
+	display: block;
+	font-family: var(--font-monospace);
+	font-size: var(--code-size);
+}
+.block-language-arena[data-status="busy"],
+.block-language-arena[data-status="error"] {
+	background-color: var(--background-secondary);
+}
