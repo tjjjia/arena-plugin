@@ -1,10 +1,9 @@
 {
 	"id": "arena-plugin",
-	"name": "Arena Plugin",
+	"name": "Are.na Plugin",
 	"version": "0.1.0",
 	"description": "Embed Are.na blocks in Obsidian.",
 	"author": "Michael Tjia",
 	"authorUrl": "https://tjia.work",
-	"isDesktopOnly": false,
-	"license": "MIT"
+	"isDesktopOnly": false
 }
