@@ -7,7 +7,7 @@ interface ArenaPluginSettings {
 
 const DEFAULT_SETTINGS: ArenaPluginSettings = {
 	storeInfo: false,
-	arenaAccessToken: 'default'
+	arenaAccessToken: ''
 }
 
 interface EmbedInfo {
@@ -90,10 +90,11 @@ export default class ArenaPlugin extends Plugin {
 
 		try {
 			const headers = {
+				'Authorization': `Bearer ${this.settings.arenaAccessToken}`,
 			};
 			const reqParam: RequestUrlParam = {
 				url: reqUrl,
-				throw: false,
+				method: 'GET',
 				headers
 			};
 			const res = await requestUrl(reqParam);
@@ -220,10 +221,19 @@ export default class ArenaPlugin extends Plugin {
 	async saveSettings() {
 		await this.saveData(this.settings);
 	}
+
 }
 
 class SampleSettingTab extends PluginSettingTab {
 	plugin: ArenaPlugin;
+
+	async clearSettings() {
+		// Clear all saved variables, including the access token
+		this.plugin.settings.arenaAccessToken = ''; // Clear the access token
+		this.plugin.settings = DEFAULT_SETTINGS;
+
+		await this.plugin.saveSettings();
+	}
 
 	constructor(app: App, plugin: ArenaPlugin) {
 		super(app, plugin);
@@ -234,16 +244,36 @@ class SampleSettingTab extends PluginSettingTab {
 		const {containerEl} = this;
 
 		containerEl.empty();
+		containerEl.createEl('h2', { text: 'Are.na Plugin' });
 
-		new Setting(containerEl)
-			.setName('Are.na Plugin')
-			.setDesc('Test')
+		const arenaAccessTokenField = new Setting(containerEl)
+			.setName('Access token (optional)')
+			.setDesc('Used to access private blocks. Generate token at https://dev.are.na/oauth/applications. Use at your own risk.')
 			.addText(text => text
-				.setPlaceholder('Enter your secret')
+				.setPlaceholder('Enter your access token')
 				.setValue(this.plugin.settings.arenaAccessToken)
 				.onChange(async (value) => {
 					this.plugin.settings.arenaAccessToken = value;
 					await this.plugin.saveSettings();
-				}));
+			}));
+
+			new Setting(containerEl)
+				.setName('Clear all settings')
+				.setDesc('Wipes everything from cache including access tokens.')
+				.addButton((btn) =>
+					btn
+						.setButtonText('Clear Saved Variables')
+						// .setIcon('mod-danger')
+						//@ts-ignore
+						// .setTooltip('Use at your own risk!', {placement: 'top'})
+						// .setDisabled(true)
+						.onClick(async () => {
+							// Clear your settings, including access tokens
+							this.plugin.settings.arenaAccessToken = '';
+							this.plugin.settings = DEFAULT_SETTINGS;
+							await this.plugin.saveSettings();
+							this.display();
+							new Notice('Settings have been cleared.');
+						}));
 	}
 }

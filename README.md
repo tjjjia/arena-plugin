@@ -10,7 +10,7 @@ Notetaking should be visual. This plugin enables Are.na blocks to be embedded in
   - [x] Text
   - [ ] Embed
   - [ ] Attachment
-- [ ] Load private blocks (requires authentication)
+- [x] Load private blocks (requires authentication)
 - [ ] User testing
 
 ### How to use
@@ -21,3 +21,6 @@ Notetaking should be visual. This plugin enables Are.na blocks to be embedded in
 
 ### Manually installing the plugin
 Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/arena-plugin/`.
+
+### Accessing private blocks (authentication)
+To access private blocks, you will need an access token. Generate token at [https://dev.are.na/oauth/applications] and store it in the plugin's setting.
