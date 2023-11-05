@@ -246,7 +246,7 @@ class SampleSettingTab extends PluginSettingTab {
 		containerEl.empty();
 		containerEl.createEl('h2', { text: 'Are.na Plugin' });
 
-		const arenaAccessTokenField = new Setting(containerEl)
+		new Setting(containerEl)
 			.setName('Access token (optional)')
 			.setDesc('Used to access private blocks. Generate token at https://dev.are.na/oauth/applications. Use at your own risk.')
 			.addText(text => text
@@ -257,23 +257,23 @@ class SampleSettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 			}));
 
-			new Setting(containerEl)
-				.setName('Clear all settings')
-				.setDesc('Wipes everything from cache including access tokens.')
-				.addButton((btn) =>
-					btn
-						.setButtonText('Clear Saved Variables')
-						// .setIcon('mod-danger')
-						//@ts-ignore
-						// .setTooltip('Use at your own risk!', {placement: 'top'})
-						// .setDisabled(true)
-						.onClick(async () => {
-							// Clear your settings, including access tokens
-							this.plugin.settings.arenaAccessToken = '';
-							this.plugin.settings = DEFAULT_SETTINGS;
-							await this.plugin.saveSettings();
-							this.display();
-							new Notice('Settings have been cleared.');
-						}));
+		new Setting(containerEl)
+			.setName('Clear all settings')
+			.setDesc('Wipes everything from cache including access tokens.')
+			.addButton((btn) =>
+				btn
+					.setButtonText('Clear Saved Variables')
+					// .setIcon('mod-danger')
+					//@ts-ignore
+					// .setTooltip('Use at your own risk!', {placement: 'top'})
+					// .setDisabled(true)
+					.onClick(async () => {
+						// Clear your settings, including access tokens
+						this.plugin.settings.arenaAccessToken = '';
+						this.plugin.settings = DEFAULT_SETTINGS;
+						await this.plugin.saveSettings();
+						this.display();
+						new Notice('Settings have been cleared.');
+			}));
 	}
 }
