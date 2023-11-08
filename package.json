@@ -1,9 +1,10 @@
 {
 	"name": "arena-plugin",
-	"version": "0.2.0",
-	"description": "Embed Are.na blocks in Obsidian (https://obsidian.md)",
+	"version": "0.4.0",
+	"description": "Embed Are.na content in Obsidian (https://obsidian.md)",
 	"main": "main.js",
 	"scripts": {
+		"start": "npm run dev",
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
@@ -20,5 +21,8 @@
 		"obsidian": "latest",
 		"tslib": "2.4.0",
 		"typescript": "4.7.4"
+	},
+	"dependencies": {
+		"timeago.js": "^4.0.2"
 	}
 }
