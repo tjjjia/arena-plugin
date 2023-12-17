@@ -3,7 +3,7 @@ Notetaking should be visual. This plugin enables Are.na content to be embedded i
 
 ## How to use
 
-Download release, install, and use a code block to include Are.na blocks or channels. Alternatively, access plugins through the command palette (`⌘ P` or `Ctrl P`).
+Download release, install, and use a code block to include Are.na blocks or channels. Alternatively, access plugins through the command palette (`⌘``P` or `Control``P`).
 
 ### Display a single block
 ````
@@ -27,6 +27,10 @@ https://www.are.na/block/1919575
 https://www.are.na/michael-tjia/fresh-tulips-of-bel-air
 ```
 ````
+
+### Accessing private blocks (authentication)
+To access private blocks, you will need an access token. Generate token at https://dev.are.na/oauth/applications and store it in Are.na Plugin's settings.
+
 
 ## To-do
 - [x] ~~Connection through API~~
@@ -54,6 +58,3 @@ https://www.are.na/michael-tjia/fresh-tulips-of-bel-air
 
 ## Manually installing the plugin
 Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/arena-plugin/`.
-
-## Accessing private blocks (authentication)
-To access private blocks, you will need an access token. Generate token at https://dev.are.na/oauth/applications and store it in Are.na Plugin's settings.
