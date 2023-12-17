@@ -3,7 +3,7 @@ Notetaking should be visual. This plugin enables Are.na content to be embedded i
 
 ## How to use
 
-Download release, install, and use a code block to include Are.na blocks or channels. Alternatively, access plugins through the command palette (`⌘` `P` or `Control` `P`).
+Download release, install, and use a code block to include Are.na blocks or channels. Alternatively, access plugin commands through the command palette (`⌘` `P` or `Control` `P`).
 
 ### Display a single block
 ````
