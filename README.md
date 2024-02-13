@@ -1,9 +1,11 @@
 #  Are.na Plugin for Obsidian
-Notetaking should be visual. This plugin enables Are.na content to be embedded in Obsidian.
+Notetaking should be visual. This plugin enables Are.na content to be embedded in Obsidian, creating new connections between notes, blocks and channels.
 
 ## How to use
 
-Download release, install, and use a code block to include Are.na blocks or channels. Alternatively, access plugin commands through the command palette (`⌘` `P` or `Control` `P`).
+1. Download release
+2. Unpack contents to your Vault (`VaultFolder/.obsidian/plugins/arena-plugin/`).
+3. Use a code block to include Are.na blocks or channels. Alternatively, access plugin commands through the command palette (`⌘` `P` or `Control` `P`).
 
 ### Display a single block
 ````
@@ -28,33 +30,11 @@ https://www.are.na/michael-tjia/fresh-tulips-of-bel-air
 ```
 ````
 
-### Accessing private blocks (authentication)
-To access private blocks, you will need an access token. Generate token at https://dev.are.na/oauth/applications and store it in Are.na Plugin's settings.
-
-
-## To-do
-- [x] ~~Connection through API~~
-- [x] ~~Load multiple blocks~~
-- [x] ~~Display the following classes:~~
-  - [x] ~~Image~~
-  - [x] ~~Link~~
-  - [x] ~~Text~~
-  - [x] ~~Embed~~
-  - [x] ~~Attachment~~
-- [x] ~~Load private blocks (requires authentication)~~
-- [x] ~~Load channel~~
-  - [x] ~~Added display options~~
-- [x] ~~Add commands~~
-	- [x] ~~Block~~
-	- [x] ~~Channel~~
-	- [x] ~~Random blocks~~
-- [ ] User testing
+### Accessing private blocks (Authentication)
+To access private blocks, you will need an access token. Generate your token at https://dev.are.na/oauth/applications and store it in Are.na Plugin's settings.
 
 ## How to build
 - Clone this repo.
 - Make sure your NodeJS is at least v16 (`node --version`).
 - `npm i` or `yarn` to install dependencies.
 - `npm run dev` to start compilation in watch mode.
-
-## Manually installing the plugin
-Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/arena-plugin/`.
