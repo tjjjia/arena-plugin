@@ -1,5 +1,5 @@
 #  Are.na Plugin for Obsidian
-Notetaking should be visual. This plugin enables Are.na content to be embedded in Obsidian, creating new connections between notes, blocks and channels.
+Notetaking should be visual. This plugin enables Are.na content to be embedded in Obsidian, creating new connections between notes, blocks, and channels.
 
 ## How to use
 
