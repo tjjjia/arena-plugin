@@ -5,6 +5,7 @@ interface ArenaPluginSettings {
 	arenaAccessToken: string;
 	notificationHeader: string;
 	enableChannelBlock: boolean;
+	enableReverse: boolean;
 	lengthMax: string;
 	userSlug: string;
 }
@@ -12,6 +13,7 @@ const DEFAULT_SETTINGS: ArenaPluginSettings = {
 	arenaAccessToken: '',
 	notificationHeader: 'Are.na Plugin:',
 	enableChannelBlock: true,
+	enableReverse: true,
 	lengthMax: '20',
 	userSlug: ''
 }
@@ -66,8 +68,8 @@ export default class ArenaPlugin extends Plugin {
 
 		// if nothing matches, assume wrong url
 		if (!matches) {
-			console.error("URL doesn't match the pattern.");
-			new Notice(`${this.settings.notificationHeader} URL doesn\'t match the pattern.`);
+			console.error("URL doesn't match the required pattern.");
+			new Notice(`${this.settings.notificationHeader} URL doesn\'t match the required pattern.`);
 			apiRequest.class = 'unknown';
 
 			return apiRequest;
@@ -151,7 +153,6 @@ export default class ArenaPlugin extends Plugin {
 		container.addClass('arena--block');
 		let captionElement;
 
-		console.log(info.arenaClass)
 		switch (info.arenaClass) {
 			case "media":
 			case "image":
@@ -239,13 +240,19 @@ export default class ArenaPlugin extends Plugin {
 				// fetch data through appropriate api
 				const data = await this.fetchAPI(apiRequest.url, apiRequest.class);
 				if(!data){ 
-					this.createError(el, `[Are.na Plugin] Failed to load ${url}`);
+					this.createError(el, `[Are.na Plugin] Failed to load ${url}. `);
+					el.setAttribute('data-status','error');
 					return;
 				};
-				console.log(data);
 
 				// prepare data as array of blocks
 				let blocks: any[] = [];
+
+				// reverse order if necessary
+				if (data.contents && this.settings.enableReverse == true){
+					data.contents = data.contents.reverse();
+				}
+
 				switch (apiRequest.class) {
 					// we have a channel, expect many
 					case "channel":
@@ -284,8 +291,9 @@ export default class ArenaPlugin extends Plugin {
 
 				// display blocks
 				const lengthMax = this.settings.lengthMax ? parseInt(this.settings.lengthMax) : 20;
+				
 				blocks.forEach( (block: any, index: number) => {
-					if( index > lengthMax - 1 ){ return; }
+					if( index > lengthMax - 1 ){ return; } // continue until maximum has been reached
 
 					const info = this.getLinkInfo(block); // get data
 					this.createEmbed(el, info);
@@ -300,24 +308,50 @@ export default class ArenaPlugin extends Plugin {
 			id: 'insert-block',
 			name: 'Insert block',
 			editorCallback: (editor: Editor, view: MarkdownView) => {
+				// Store cursor position
+				const cursorPosition = {
+					start: editor.getCursor(),
+					end: editor.getCursor(),
+				};
+				cursorPosition.start.line += 1; // anticipate
+				cursorPosition.end.line += 1; // anticipate
+
 				// Define the content of your code block
-				const codeContent = '```arena\nhttps://www.are.na/block/123456\n```';
+				const codeContent = '```arena\nhttps://www.are.na/block/4389827\n```';
 
 				// Insert the code block at the current cursor position
 				editor.replaceSelection(codeContent);
+
+				// Set cursor to the right position
+				cursorPosition.end.ch = codeContent.length - 13; // amount of chars to move right, see codeCondent
+				editor.setSelection(cursorPosition.start, cursorPosition.end);
 			},
 		});
+
 		this.addCommand({
 			id: 'insert-channel',
 			name: 'Insert channel',
 			editorCallback: (editor: Editor, view: MarkdownView) => {
+				// Store cursor position
+				const cursorPosition = {
+					start: editor.getCursor(),
+					end: editor.getCursor(),
+				};
+				cursorPosition.start.line += 1; // anticipate
+				cursorPosition.end.line += 1; // anticipate
+
 				// Define the content of your code block
-				const codeContent = '```arena\nhttps://www.are.na/channels/diagrams-of-thought\n```';
+				const codeContent = '```arena\nhttps://www.are.na/channels/fresh-tulips-of-bel-air\n```';
 
 				// Insert the code block at the current cursor position
 				editor.replaceSelection(codeContent);
+
+				// Set cursor to the right position
+				cursorPosition.end.ch = codeContent.length - 13; // amount of chars to move right, see codeCondent
+				editor.setSelection(cursorPosition.start, cursorPosition.end);
 			},
 		});
+
 		this.addCommand({
 			id: 'insert-random-personal',
 			name: 'Insert random blocks (of yours)',
@@ -387,6 +421,17 @@ class SampleSettingTab extends PluginSettingTab {
 					this.plugin.settings.lengthMax = value;
 					await this.plugin.saveSettings();
 			}));
+
+		new Setting(containerEl)
+		.setName('Show newest blocks first')
+		.setDesc('Display channels in the same order as on Are.na.')
+		.addToggle((toggle) => { toggle
+			.setValue(this.plugin.settings.enableReverse)
+			.onChange((value) => {
+				this.plugin.settings.enableReverse = value;
+				this.plugin.saveSettings();
+			});
+		});
 
 		containerEl.createEl('h2', { text: 'Data and Authentication' });
 
