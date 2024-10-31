@@ -7,7 +7,7 @@ Notetaking should be visual. This plugin enables Are.na content to be embedded i
 2. Unpack contents to your Vault (`VaultFolder/.obsidian/plugins/arena-plugin/`).
 3. Ensure the plugin is activated. You can do this in Obsidian's preference pane.
 4. Use a code block (see examples) to include Are.na blocks or channels. Alternatively, access plugin commands through the command palette (`⌘` `P` or `Control` `P`).
-5. Optional: Customize Are.na Plugin's settings or [add a token](#accessing-private-blocks-authentication) to access private blocks. (Optional)
+5. Optional: Customize Are.na Plugin's settings or [add a token](#accessing-private-blocks-authentication) to access private blocks.
 
 ### Example: Display a single block
 ````
@@ -33,9 +33,9 @@ https://www.are.na/michael-tjia/fresh-tulips-of-bel-air
 ````
 
 ### Accessing private blocks (Authentication)
-To access private blocks, you will need an access token. Generate your token at https://dev.are.na/oauth/applications and store it in Are.na Plugin's settings.
+To access private blocks, you will need an access token. Generate your token at https://dev.are.na/oauth/applications and store it in the plugin settings.
 
-## How to build
+## Build instructions for developers
 
 - Clone this repo.
 - Make sure your NodeJS is at least v16 (`node --version`).
