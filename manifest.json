@@ -1,9 +1,11 @@
 {
-	"id": "arena-plugin",
-	"name": "Are.na Plugin",
-	"version": "0.5.0",
-	"description": "Embed Are.na content in Obsidian.",
-	"author": "Michael Tjia",
-	"authorUrl": "https://tjia.work",
+	"id": "sample-plugin",
+	"name": "Sample Plugin",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Demonstrates some of the capabilities of the Obsidian API.",
+	"author": "Obsidian",
+	"authorUrl": "https://obsidian.md",
+	"fundingUrl": "https://obsidian.md/pricing",
 	"isDesktopOnly": false
 }
